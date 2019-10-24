@@ -13,6 +13,12 @@ def read(url):
     return data
 
 def test_create_dataframe(dataframe,col_list):
-    if list(dataframe.columns)==col_list and len(set(dataframe.dtypes))==1 and dataframe.shape[0]>=10:
+    sametype = True
+    for i in len(dataframe.columns):
+        for j in dataframe.iloc[:,i]:
+            if type(j) != type(dataframe.iloc[0,i]):
+                sametype = False
+                break
+    if list(dataframe.columns)==col_list and sametype==True and dataframe.shape[0]>=10:
         return True
     return False
